@@ -1,22 +1,25 @@
 from itertools import starmap
 from tkinter import *
 from tkinter import ttk
-from Graphing import *
+from GameOfLife import *
 
 
 #Every tkinter window has a root window which is our drawing board/canvas
 #cv in this program for control variable
 root=Tk()
 root.title("GameOfLife")
-alive_image=PhotoImage(file=r"C:\Users\91907\Desktop\Game-Dev\Sprites\GameOfLife_Alive.png")
+alive_image=PhotoImage(file=r"E:\GameOfLife\Sprites\GameOfLife_Alive.png")
 root.iconphoto(False,alive_image)
 
 #Control variables
 toroidal_boundary_cv=IntVar()
 size_cv=IntVar()
 listbox_cv=StringVar()
+size_cv.set(30)
+
 listbox_cv.set('Random Glider')
 speed_cv=IntVar()
+speed_cv.set(100)
 
 #mainframe
 mainframe=ttk.Frame(root)
@@ -50,7 +53,7 @@ grid_pattern_listbox=Listbox(mainframe,listvariable=listbox_cv,height=2)
 speed_scale=Scale(mainframe,orient=HORIZONTAL,from_=500, to=5,variable=speed_cv)
 
 def call_Graphing():
-    graph=Grid(255,0,size_cv.get(),speed_cv.get(),toroidal_boundary_cv.get())
+    graph=GameOfLife(255,0,size_cv.get(),speed_cv.get(),toroidal_boundary_cv.get())
     xy=grid_pattern_listbox.curselection()
     for x in xy:
         if x==0:
